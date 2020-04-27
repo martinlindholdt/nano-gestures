@@ -8,8 +8,11 @@ _Just a few files to Captuer various motions from the IMU unit on the Arduino an
 ## Content 
 
 `/sketches/` - runs on the Arduino 
+
 `/tensorflow/` - Python scripts to build and test the model 
+
 `/data/` - a couple of small datasets recorded by myself 
+
 `/model` - tf lite model that will be used on the Arduino. 
 
 ## Credit 
