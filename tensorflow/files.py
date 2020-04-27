@@ -7,3 +7,9 @@ def get_counter_and_increment(filename="counter.dat"):
         f.truncate()
         f.write(str(val))
         return val
+
+
+def get_counter(filename="counter.dat"):
+    with open(filename, "a+") as f:
+        f.seek(0)
+        return int(f.read() or 0)

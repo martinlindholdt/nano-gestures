@@ -5,20 +5,12 @@ graphs.py for plotting Tensorflow data for use in Aruduino 33 BLE Sense
 """
 
 import matplotlib.pyplot as plt
-from files import get_counter_and_increment
+from files import get_counter
 
-STORE = False
-COUNTER = 0
-
-
-def store_graphs(store=True):
-    global STORE, COUNTER
-    STORE = store
-    if STORE:
-        COUNTER = get_counter_and_increment()
+COUNTER = get_counter()
 
 
-def graph(df):
+def graph(df, STORE=False):
     # no of data entries
     index = range(1, len(df['aX']) + 1)
 
@@ -48,7 +40,7 @@ def graph(df):
     return
 
 
-def graph_loss(history, SKIP=0):
+def graph_loss(history, SKIP=0, STORE=False):
     # increase the size of the graphs. The default size is (6,4).
     plt.rcParams["figure.figsize"] = (20, 10)
 
@@ -70,7 +62,7 @@ def graph_loss(history, SKIP=0):
 
 
 # mea = mean absolute error
-def graph_mae(history, SKIP=0):
+def graph_mae(history, SKIP=0, STORE=False):
     # graph of mean absolute error
     mae = history.history['mae']
     val_mae = history.history['val_mae']
@@ -87,7 +79,7 @@ def graph_mae(history, SKIP=0):
     plt.show()
 
 
-def graph_predictions(inputs_test, outputs_test, predictions):
+def graph_predictions(inputs_test, outputs_test, predictions, STORE=False):
     # Plot the predictions along with to the test data
     plt.clf()
     plt.title('Training data predicted vs actual values')

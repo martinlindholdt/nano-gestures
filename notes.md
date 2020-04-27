@@ -1,4 +1,9 @@
 
+cat /dev/cu.usbmodem[nnnnn] > sensorlog.csv 
+
+
+
+
 seed: 1337 
 Randomize: [13  0  5 30 16 19 12 29  7 10 21  4 40 38  3 35 15 17 14 27 11 34 33  2
  36 31 32  1 24 41 37 22  6  9  8 20 18 26 25 39 28 23] 
