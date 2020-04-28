@@ -13,6 +13,7 @@ __status__ = "Prototype"
 # pip install tensorflow==2.0.0-rc1
 
 import os
+import datetime
 
 import numpy as np
 import pandas as pd
@@ -160,6 +161,11 @@ if DEBUG:
 
 print("Data set randomization and splitting complete.")
 
+# Set up TensorBoard logging 
+# Enable with `tensorboard --logdir logs`
+# point browser to: http://localhost:6006/ 
+log_dir = "logs/" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
 # build the model and train it
 model = tf.keras.Sequential()
@@ -169,15 +175,17 @@ model.add(tf.keras.layers.Dense(100, activation='relu'))
 model.add(tf.keras.layers.Dense(15, activation='relu'))
 # softmax is used, because we only expect one gesture to occur per input
 model.add(tf.keras.layers.Dense(len(GESTURES), activation='softmax'))
-model.compile(optimizer='sgd',     # or 'sgd' / 'rmsprop' / 'adam' 
+model.compile(optimizer='adam',     # or 'sgd' / 'rmsprop' / 'adam' 
               loss='mse',           # mean square error
-              metrics=['mae'])      # Mean absolute error. Or 'accuracy' 
+              metrics=['mae', 'accuracy'])      # Mean absolute error. Or 'accuracy' 
 
 # history = model.fit(inputs_train, outputs_train, epochs=600, batch_size=1, validation_data=(inputs_validate, outputs_validate))
 history = model.fit(inputs_train, outputs_train, 
                     epochs=600,
                     batch_size=10,
-                    validation_data=(inputs_validate, outputs_validate))
+                    validation_data=(inputs_validate, outputs_validate),
+                    callbacks=[tensorboard_callback]
+                    )
 
 
 print("Data model training done")

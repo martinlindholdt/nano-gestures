@@ -15,6 +15,26 @@ _Just a few files to Captuer various motions from the IMU unit on the Arduino an
 
 `/model` - tf lite model that will be used on the Arduino. 
 
+
+### Capture data 
+
+1. run IMU_Caputre on Arduino 
+
+2. in shell `cat /dev/cu.usbmodem[nnnnn] > data/newlog.csv`
+
+3. remember to update model.py with "newlog" in GESTURES list. 
+
+### Build the model 
+
+```
+$ cd tensorflow 
+$ python model.py
+
+# new shell or just later in same dir. 
+$ tensorboard --logdir logs
+# point browser to: http://localhost:6006/ 
+```
+
 ## Credit 
 
 This is really just a bit further development on the nice tutorial here: 
